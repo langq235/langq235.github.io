@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <script type="text/javascript" src="http://cdn.bootcss.com/bignumber.js/4.0.2/bignumber.min.js"></script>
+</head>
+<body>
+<div>
+    <label>星耀平均分</label>
+    <input type="" name="" id="base" value="2100" placeholder="2100">
+    <label>场数</label>
+    <input type="" name="" id="matches" value="100" placeholder="100">
+    <label>你的分数</label>
+    <input type="" name="" id="you" value="2200">
+    <button id="cal">计算</button>
+</div>
+<div id="percent" style="word-break:break-all"></div>
+
+<script type="text/javascript">
+    // 计算阶乘
+    function factorial(x){
+        if(typeof(x) == 'number'){
+            x = new BigNumber(x);
+        }
+        if (parseInt(x.toString()) < 2) {
+            return new BigNumber(1);
+        } else {
+            return x.times(factorial(x-1))
+        }
+    }
+
+    // 计算排列组合
+    function C(m, n) {
+        return factorial(n).div(factorial(m).times(factorial(n-m)));
+    }
+
+    // p(exactly k scores in n attempts)
+    // base on prob 60% .6, and 100 matches
+    function cal(m, n) {
+        let base = parseInt(document.getElementById('base').value);
+        let you = parseInt(document.getElementById('you').value);
+        let percent = compete(you, base).toFixed(2);
+        // let percent = 0.64;
+        
+        return C(m,n).times(new BigNumber(percent).pow(m)).times(new BigNumber((1-percent).toFixed(2)).pow(n-m));
+    }
+    let compete = function(score1, score2){
+        let probability = 1 / (1 + Math.pow(10, (score2-score1)/400));
+        return probability;
+    };
+
+    document.getElementById('cal').addEventListener('click', function() {
+        let p = new BigNumber(0);
+        let matches = parseInt(document.getElementById('matches').value);
+        for(i = matches; i>=Math.floor(matches/2+13); i--){
+            let c = cal(i, matches);
+            p = p.plus(c);
+        }
+        document.getElementById('percent').innerHTML = '可能性为： ' + p;
+    });
+</script>
+</body>
+</html>
