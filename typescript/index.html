@@ -683,7 +683,7 @@ $ npm install</pre><h4><a name='header-n309' class='md-header-anchor '></a>加�
     &quot;include&quot;: [
         &quot;./src/**/*&quot;
     ]
-}</pre><p>增加 .vue 文件的处理：新建一个 vue-shims.d.ts 文件</p><pre class='md-fences mock-cm' style='display:block;position:relative'>declare module &quot;*.vue&quot; {
+}</pre><p>增加 .vue 文件的处理：在<strong>src/boot</strong>中新建一个 vue-shims.d.ts 文件</p><pre class='md-fences mock-cm' style='display:block;position:relative'>declare module &quot;*.vue&quot; {
     import Vue from &#39;vue&#39;;
     export default Vue;
 }</pre><p></p><h5><a name='header-n1039' class='md-header-anchor '></a>配置 Webpack</h5><p>在module/rules中增加ts的解析支持</p><pre class='md-fences mock-cm' style='display:block;position:relative'>{
@@ -702,11 +702,15 @@ $ npm install</pre><h4><a name='header-n309' class='md-header-anchor '></a>加�
 import App from &#39;./index.vue&#39;;
 import router from &#39;@router/index&#39;;
 import store from &#39;@vuex/index&#39;;
+import filters from &#39;@utils/filters&#39;;
 new Vue({
 	el:&#39;#app&#39;,
 	router,
 	render: h =&gt; h(App)
-})</pre><p>选择一个你想访问的vue文件，比如pages/error/404.vue</p><p>使用lang=&quot;ts&quot;属性，表示此段代码引入 TypeScript ，如果不写，这段代码将不会引入TypeScript</p><p>这时你已经可以享受TS带来的收益了。</p><pre class='md-fences mock-cm' style='display:block;position:relative'>$npm run dev</pre><h5><a name='header-n961' class='md-header-anchor '></a>举个例子</h5><p>你个看到demo中这个提示</p><p><img src='https://langq235.github.io/typescript/2.png' alt='2' /></p><h5><a name='header-n537' class='md-header-anchor '></a>再举个例子</h5><p><img src='https://langq235.github.io/typescript/1.png' alt='1' /></p><p>将一个定义为字符串的变量复制为数字，编辑器可以在保存代码时就提示出错误。</p><p>更多基本的使用方法请参考官网，接下来主要介绍 Vue + TypeScript 时会遇到的麻烦。</p><h3><a name='header-n942' class='md-header-anchor '></a>会遇到的麻烦</h3><ol><li><h4><a name='header-n693' class='md-header-anchor '></a>export</h4></li></ol><pre class='md-fences mock-cm' style='display:block;position:relative'>export default{} //错误
+})</pre><p>选择一个你想访问的vue文件，比如pages/error/404.vue</p><p>插入script标签并使用lang=&quot;ts&quot;属性，表示此段代码引入 TypeScript ，如果不写，这段代码将不会引入TypeScript</p><pre class='md-fences mock-cm' style='display:block;position:relative'>&lt;script lang=&quot;ts&quot;&gt;
+    let abc: string = &#39;abc&#39;;
+	abc = 123;
+&lt;/script&gt;</pre><p>这时你已经可以享受TS带来的收益了。</p><pre class='md-fences mock-cm' style='display:block;position:relative'>$npm run dev</pre><h5><a name='header-n961' class='md-header-anchor '></a>举个例子</h5><p>你将看到demo中这个提示</p><p><img src='https://langq235.github.io/typescript/2.png' alt='2' /></p><h5><a name='header-n537' class='md-header-anchor '></a>再举个例子</h5><p><img src='https://langq235.github.io/typescript/1.png' alt='1' /></p><p>将一个定义为字符串的变量复制为数字，编辑器可以在保存代码时就提示出错误。</p><p>更多基本的使用方法请参考官网，接下来主要介绍 Vue + TypeScript 时会遇到的麻烦。</p><h3><a name='header-n942' class='md-header-anchor '></a>会遇到的麻烦</h3><ol><li><h4><a name='header-n693' class='md-header-anchor '></a>export</h4></li></ol><pre class='md-fences mock-cm' style='display:block;position:relative'>export default{} //错误
 export default Vue.extend({}); //正确</pre><ol start='2' ><li><h4><a name='header-n696' class='md-header-anchor '></a>在 data 中定义的属性无法被 TS 识别</h4></li></ol><p>这里介绍两种解决方案</p><h5><a name='header-n645' class='md-header-anchor '></a>第一种，先定义一个 interface，然后实现它</h5><pre class='md-fences mock-cm' style='display:block;position:relative'>import Vue, { ComponentOptions } from &#39;vue&#39;
 // Declare the component&#39;s type
 interface MyComponent extends Vue {
