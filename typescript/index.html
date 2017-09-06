@@ -777,11 +777,15 @@ export default class App extends Vue {
     greet() {
         alert(&#39;greeting: &#39; + this.msg)
     }
-}</pre><p>好处：ES6 的写法，避免了第一种方案的问题</p><p>缺点：ES6 的写法，与 Vue 的默认写法不同，依赖修饰符做补丁</p><ol start='3' ><li><h4><a name='header-n711' class='md-header-anchor '></a>使用方案 2 时会遇到的问题</h4></li></ol><h5><a name='header-n719' class='md-header-anchor '></a>如何传递 Props 与如何使用 Watch 等</h5><p>使用 <a href='https://github.com/kaorun343/vue-property-decorator'>vue-property-decorator</a> 的例子</p><pre class='md-fences mock-cm' style='display:block;position:relative'>import { Component, Inject, Model, Prop, Vue, Watch } from &#39;vue-property-decorator&#39;
+}</pre><p>好处：ES6 的写法，避免了第一种方案的问题</p><p>缺点：ES6 的写法，与 Vue 的默认写法不同，依赖修饰符做补丁</p><ol start='3' ><li><h4><a name='header-n711' class='md-header-anchor '></a>使用方案 2 时会遇到的问题</h4></li></ol><h5><a name='header-n719' class='md-header-anchor '></a>如何传递 components 与如何使用 watch 等</h5><p>使用 <a href='https://github.com/kaorun343/vue-property-decorator'>vue-property-decorator</a> 的例子</p><pre class='md-fences mock-cm' style='display:block;position:relative'>import { Component, Inject, Model, Prop, Vue, Watch } from &#39;vue-property-decorator&#39;
 
 const s = Symbol(&#39;baz&#39;)
 
-@Component
+@Component({
+    components: {
+        //在这里传入components
+    },
+})
 export class MyComponent extends Vue {
 
     @Inject() foo: string
