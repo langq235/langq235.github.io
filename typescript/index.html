@@ -652,37 +652,37 @@ header, .context-menu, .megamenu-content, footer{
 $ vue init steelDM/vue-cli-template demo
 $ cd demo
 $ npm install</pre><h4><a name='header-n309' class='md-header-anchor '></a>加入 TypeScript 支持</h4><h5><a name='header-n319' class='md-header-anchor '></a>安装必要的库</h5><pre class='md-fences mock-cm' style='display:block;position:relative'>npm install --save-dev typescript ts-loader vue-class-component vue-property-decorator</pre><p>新建一个 TypeScript 配置文件，命名为 tsconfig.json，放置在项目根目录，内容如下</p><pre class='md-fences mock-cm' style='display:block;position:relative'>{
-&quot;compilerOptions&quot;: {
-    &quot;outDir&quot;: &quot;./built/&quot;,
-    &quot;sourceMap&quot;: true,
-    &quot;strict&quot;: true,
-    &quot;module&quot;: &quot;es2015&quot;,
-    &quot;moduleResolution&quot;: &quot;node&quot;,
-    &quot;allowJs&quot;: true,
-    &quot;target&quot;: &quot;es5&quot;,
-    &quot;allowSyntheticDefaultImports&quot;: true,
-    &quot;experimentalDecorators&quot;: true,
-    &quot;lib&quot;: [
-        &quot;dom&quot;,
-        &quot;es5&quot;,
-        &quot;es2015.promise&quot;
-    ],
-    &quot;baseUrl&quot;: &quot;./&quot;,
-    &quot;paths&quot;: {
-        &quot;@vuex/*&quot;: [&quot;src/vuex/*&quot;],
-        &quot;@boot/*&quot;: [&quot;src/boot/*&quot;],
-        &quot;@dao&quot;: [&quot;src/dao/&quot;],
-        &quot;@resource/*&quot;: [&quot;src/resource/*&quot;],
-        &quot;@pages/*&quot;: [&quot;src/pages/*&quot;],
-        &quot;@components/*&quot;: [&quot;src/components/*&quot;],
-        &quot;@router/*&quot;: [&quot;src/router/*&quot;],
-        &quot;@Enum&quot;: [&quot;src/Enum&quot;],
-        &quot;@utils/*&quot;: [&quot;src/utils/*&quot;]
-    }
-},
-&quot;include&quot;: [
-    &quot;./src/**/*&quot;
-]
+    &quot;compilerOptions&quot;: {
+        &quot;outDir&quot;: &quot;./built/&quot;,
+        &quot;sourceMap&quot;: true,
+        &quot;strict&quot;: true,
+        &quot;module&quot;: &quot;es2015&quot;,
+        &quot;moduleResolution&quot;: &quot;node&quot;,
+        &quot;allowJs&quot;: true,
+        &quot;target&quot;: &quot;es5&quot;,
+        &quot;allowSyntheticDefaultImports&quot;: true,
+        &quot;experimentalDecorators&quot;: true,
+        &quot;lib&quot;: [
+            &quot;dom&quot;,
+            &quot;es5&quot;,
+            &quot;es2015.promise&quot;
+        ],
+        &quot;baseUrl&quot;: &quot;./&quot;,
+        &quot;paths&quot;: {
+            &quot;@vuex/*&quot;: [&quot;src/vuex/*&quot;],
+            &quot;@boot/*&quot;: [&quot;src/boot/*&quot;],
+            &quot;@dao&quot;: [&quot;src/dao/&quot;],
+            &quot;@resource/*&quot;: [&quot;src/resource/*&quot;],
+            &quot;@pages/*&quot;: [&quot;src/pages/*&quot;],
+            &quot;@components/*&quot;: [&quot;src/components/*&quot;],
+            &quot;@router/*&quot;: [&quot;src/router/*&quot;],
+            &quot;@Enum&quot;: [&quot;src/Enum&quot;],
+            &quot;@utils/*&quot;: [&quot;src/utils/*&quot;]
+        }
+    },
+    &quot;include&quot;: [
+        &quot;./src/**/*&quot;
+    ]
 }</pre><p>增加 .vue 文件的处理：新建一个 vue-shims.d.ts 文件</p><pre class='md-fences mock-cm' style='display:block;position:relative'>declare module &quot;*.vue&quot; {
     import Vue from &#39;vue&#39;;
     export default Vue;
